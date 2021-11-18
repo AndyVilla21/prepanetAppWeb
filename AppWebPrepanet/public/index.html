@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Administradores Prepanet</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.4.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.4.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.4.1/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+body{
+	font-family: 'Raleway', sans-serif;
+}
+input[type=text], select{
+	display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+	border-style:solid ;
+	border-width:thin;
+	border-color:#CCC;
+    font-size: 1em;
+    padding: 8px 10px 8px 10px;
+    color: ;
+	border-radius: .3em;
+}
+input[type=password], select{
+	display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+	border-style:solid ;
+	border-width:thin;
+	border-color:#CCC;
+    font-size: 1em;
+    padding: 8px 10px 8px 10px;
+    color: ;
+	border-radius: .3em;
+}
+input:focus{
+	border-style:solid ;
+	border-width:medium;
+	border-color:#55595d;
+	outline:0px;
+}
+input[type=button] {
+	background-color: "white";
+	color: "black";
+	padding:  12px; 
+	border: none;
+	width: 30%;  
+	font-size:1.4em;
+	border-radius: .3em;
+}
+input[type=button]:hover {
+	background-color: #55595d;
+	color: #ffffff;
+	transition: all .50s ease 0s;
+}
+</style>
+
+  <body>
+	<form>
+    	<table border="0" cellpadding="10" cellspacing="0" width="100%">
+        
+        	<tr bgcolor="black">
+            	<td align="center">
+                	<h1> <font color="white"> Login Administradores Prepanet </font></h1>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                	<br />
+                    <br />
+                    <table border="0" cellpadding="15" cellspacing="0" bgcolor="black" width="30%" id="table_login">
+                    
+                    	<tr>
+                        	<td align="center">
+                            	<h2><font color="white">Ingrese a su cuenta</font></h2>
+                            </td>
+                        </tr>
+                    
+                    	<tr>
+                        	<td align="center">
+                            	<input type="text" placeholder="Correo electrónico" id="correo" />
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td align="center">
+                            	<input type="password" placeholder="Contraseña" id="pass" />
+                            </td>
+                        </tr>
+                        <tr>
+							<td align="center">
+                            	<input type="button" value="Login" onclick="login()" />
+                            </td>
+    					</tr>
+                        <tr>
+                        	<td>
+                            	<br />
+
+                            </td>
+                        </tr>              
+                    </table>
+                </td>
+            
+            </tr>
+    	
+    
+    	</table>
+    </form>
+    
+    <script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+	
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+		apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
+		authDomain: "prepanet-4015e.firebaseapp.com",
+		projectId: "prepanet-4015e",
+		storageBucket: "prepanet-4015e.appspot.com",
+		messagingSenderId: "754150451770",
+		appId: "1:754150451770:web:099b314cacac2328832303"
+	  };
+	
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+	</script>
+    
+    <script src="funciones.js"></script>
+    
+  </body>
+</html>
