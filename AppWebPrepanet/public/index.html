@@ -53,7 +53,6 @@ input[type=text], select{
 	border-color:#CCC;
     font-size: 1em;
     padding: 8px 10px 8px 10px;
-    color: ;
 	border-radius: .3em;
 }
 input[type=password], select{
@@ -65,7 +64,6 @@ input[type=password], select{
 	border-color:#CCC;
     font-size: 1em;
     padding: 8px 10px 8px 10px;
-    color: ;
 	border-radius: .3em;
 }
 input:focus{
@@ -123,7 +121,7 @@ input[type=button]:hover {
                         </tr>
                         <tr>
 							<td align="center">
-                            	<input type="button" value="Login" onclick="login()" />
+                            	<input type="button" value="Login" id="login" />
                             </td>
     					</tr>
                         <tr>
@@ -141,27 +139,52 @@ input[type=button]:hover {
     	</table>
     </form>
     
-    <script type="module">
-	  // Import the functions you need from the SDKs you need
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
-	  // TODO: Add SDKs for Firebase products that you want to use
-	  // https://firebase.google.com/docs/web/setup#available-libraries
-	
-	  // Your web app's Firebase configuration
-	  const firebaseConfig = {
-		apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
-		authDomain: "prepanet-4015e.firebaseapp.com",
-		projectId: "prepanet-4015e",
-		storageBucket: "prepanet-4015e.appspot.com",
-		messagingSenderId: "754150451770",
-		appId: "1:754150451770:web:099b314cacac2328832303"
-	  };
-	
-	  // Initialize Firebase
-	  const app = initializeApp(firebaseConfig);
-	</script>
-    
     <script src="funciones.js"></script>
     
   </body>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
+      authDomain: "prepanet-4015e.firebaseapp.com",
+      projectId: "prepanet-4015e",
+      storageBucket: "prepanet-4015e.appspot.com",
+      messagingSenderId: "754150451770",
+      appId: "1:754150451770:web:099b314cacac2328832303"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    login.addEventListener('click', (e)=>{
+
+        var correoUsuario = document.getElementById("correo").value;
+	    var passUsuario = document.getElementById("pass").value;
+
+        signInWithEmailAndPassword(auth, correoUsuario, passUsuario)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                alert('Log in correcto');
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage);
+        });
+    });
+
+  </script>
+
 </html>
