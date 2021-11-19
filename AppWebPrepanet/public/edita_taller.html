@@ -24,18 +24,6 @@
 body{
 	font-family: 'Raleway', sans-serif;
 }
-input[type=text], select{
-	display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-	border-style:solid ;
-	border-width:thin;
-	border-color:#CCC;
-    font-size: 1em;
-    padding: 8px 10px 8px 10px;
-    color: ;
-	border-radius: .3em;
-}
 input:focus{
 	border-style:solid ;
 	border-width:medium;
@@ -43,13 +31,18 @@ input:focus{
 	outline:0px;
 }
 input[type=button] {
-	background-color: "white";
-	color: "black";
-	padding:  12px; 
+	background-color: #000;
+	color: #ffffff;
+	padding:  10px; 
 	border: none;
-	width: 30%;  
-	font-size:1.4em;
+	width: 15%;  
+	font-size:1em;
 	border-radius: .3em;
+}
+input[type=button]:hover {
+	background-color: #55595d;
+	color: #ffffff;
+	transition: all .50s ease 0s;
 }
 </style>
 
@@ -62,6 +55,25 @@ input[type=button] {
                 <h1> <font color="white"> Editor de Talleres </font></h1>
             </td>
         </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <h2>Editar información de talleres</h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="button" value="Editar" onclick="editar_taller()"
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+        </tr>
+        
     
     </table>
 
