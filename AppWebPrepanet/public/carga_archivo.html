@@ -24,13 +24,30 @@
 body{
 	font-family: 'Raleway', sans-serif;
 }
+h3 {
+    color: #66686b;
+}
 input:focus{
 	border-style:solid ;
 	border-width:medium;
 	border-color:#66686b;
 	outline:0px;
 }
-input[type=button] {
+.botonLogout{
+    background-color: #55595d;
+    color: #ffffff;
+	padding:  10px; 
+	border: none;
+	width: 15%;  
+	font-size:1em;
+	border-radius: .3em;
+}
+.botonLogout:hover{
+    background-color: #ddd;
+	color: #000;
+	transition: all .50s ease 0s;
+}
+.botonDefault {
 	background-color: #000;
 	color: #ffffff;
 	padding:  10px; 
@@ -39,48 +56,173 @@ input[type=button] {
 	font-size:1em;
 	border-radius: .3em;
 }
-input[type=button]:hover {
+.botonDefault:hover {
 	background-color: #55595d;
 	color: #ffffff;
 	transition: all .50s ease 0s;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #55595d;
+  color: white;
 }
 </style>
 
 <body>
 
-    <table border="0" cellpadding="10" cellspacing="0" width="100%">
-    
-        <tr bgcolor="black">
-            <td align="center">
-                <h1> <font color="white"> Cargar Archivos </font></h1>
-            </td>
-        </tr>
-        <tr>
-        	<td>
-            </td>
-        </tr>
-        <tr>
-        	<td align="center">
-            	<h2> Seleccione un archivo </h2>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <input type="file" value="Escoger archivo">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <br>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <input type="button" value="Cargar archivo" onclick="carga_archivo()">
-            </td>
-        </tr>
-    
-    </table>
+    <form name="funcLogout" action="index.html" method="post">
+
+        <table border="0" cellpadding="10" cellspacing="0" width="100%">
+        
+            <tr bgcolor="black">
+                <td align="right" width="58%">
+                    <h1> <font color="white"> Cargar Archivos </font></h1>
+                </td>
+                <td width="10%"></td>
+                <td width="32%">
+                    <input type="button" class="botonLogout" value="Logout" id="logout">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="topnav">
+                        <a class="active" href="carga_archivo.html">Carga Archivo</a>
+                        <a href="descarga_archivo.html">Descarga Archivo</a>
+                        <a href="editar_taller.html">Edita Taller</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">
+                    <h2> Seleccione un archivo </h2>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">
+                    <input type="file" value="Escoger archivo" accept=".csv" id="archivoSelecc">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">
+                    <input type="button" class="botonDefault" value="Cargar archivo" id="cargaArchivo">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">
+                    <h3>IMPORTANTE: El archivo debe de tener el formato (campus, email, matricula, nombre, rol)</h3>
+                </td>
+            </tr>
+        
+        </table>
+    </form>    
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
 
 </body>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
+      authDomain: "prepanet-4015e.firebaseapp.com",
+      projectId: "prepanet-4015e",
+      storageBucket: "prepanet-4015e.appspot.com",
+      messagingSenderId: "754150451770",
+      appId: "1:754150451770:web:099b314cacac2328832303"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getFirestore();
+    const auth = getAuth();
+
+    const cargaArchivo = document.getElementById('cargaArchivo').addEventListener('click', () =>
+    {
+        var campus = "";
+        var email = "";
+        var matricula = "";
+        var nombre = "";
+        var rol = "";
+        Papa.parse(document.getElementById('archivoSelecc').files[0],
+        {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function(resultados){
+                for(var i=0; i < resultados.data.length; i++){
+                    campus = resultados.data[i].campus;
+                    email = resultados.data[i].email;
+                    matricula = resultados.data[i].matricula;
+                    nombre = resultados.data[i].nombre;
+                    rol = resultados.data[i].rol;
+                    try {
+                        const docRef = setDoc(doc(database, "Usuarios", matricula), {
+                            campus: campus,
+                            email: email,
+                            matricula: matricula,
+                            nombre: nombre,
+                            rol: rol
+                        });
+                        alert('El archivo se subió con éxito');
+                    } catch (e) {
+                        console.error("Error subiendo el documento: ", e);
+                    }
+                }
+            }
+        });
+
+
+    });
+
+    logout.addEventListener('click', ()=>{
+        signOut(auth).then(() => {
+            document.funcLogout.submit();
+            alert('Se salió correctamente de la cuenta')
+        }).catch((error) => {
+            alert('Hubo un error al salir de la cuenta')
+        });
+    });
+
+</script>
+
 </html>
