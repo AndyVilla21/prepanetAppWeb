@@ -89,13 +89,13 @@ input[type=button]:hover {
 </style>
 
   <body>
-	<form>
+	<form name="forma" action="carga_archivo.html" method="post">
     	<table border="0" cellpadding="10" cellspacing="0" width="100%">
         
         	<tr bgcolor="black">
             	<td align="center">
                 	<h1> <font color="white"> Login Administradores Prepanet </font></h1>
-                </td>
+              </td>
             </tr>
             <tr>
                 <td align="center">
@@ -116,14 +116,14 @@ input[type=button]:hover {
                         </tr>
                         <tr>
                         	<td align="center">
-                            	<input type="password" placeholder="Contraseña" id="pass" />
+                              <input type="password" placeholder="Contraseña" id="pass" />
                             </td>
                         </tr>
                         <tr>
-							<td align="center">
-                            	<input type="button" value="Login" id="login" />
-                            </td>
-    					</tr>
+							            <td align="center">
+                              <input type="button" value="Login" id="login" />
+                          </td>
+    					          </tr>
                         <tr>
                         	<td>
                             	<br />
@@ -168,20 +168,19 @@ input[type=button]:hover {
 
     login.addEventListener('click', (e)=>{
 
-        var correoUsuario = document.getElementById("correo").value;
+      var correoUsuario = document.getElementById("correo").value;
 	    var passUsuario = document.getElementById("pass").value;
 
         signInWithEmailAndPassword(auth, correoUsuario, passUsuario)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                alert('Log in correcto');
+                //alert('Log correcto');
+                document.forma.submit();
                 // ...
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage);
+                alert('Usuario o contraseña incorrectos');
         });
     });
 
