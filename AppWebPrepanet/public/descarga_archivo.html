@@ -92,75 +92,75 @@ input:focus{
 
 <body>
 
-  <form name="funcLogout" action="index.html" method="post">
-
-    <table border="0" cellpadding="10" cellspacing="0" width="100%">
-      
-      <tr bgcolor="black">
-          <td align="right" width="61%">
-              <h1> <font color="white"> Descarga de Archivos </font></h1>
-          </td>
-          <td width="7%"></td>
-          <td width="32%">
-              <input type="button" class="botonLogout" value="Logout" id="logout">
-          </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-              <div class="topnav">
-                  <a href="carga_archivo.html">Carga Archivo</a>
-                  <a class="active" href="descarga_archivo.html">Descarga Archivo</a>
-                  <a href="editar_taller.html">Edita Taller</a>
-              </div>
-          </td>
-      </tr>
-      <tr>
-        <td align="center" colspan="3">
-            <h2> Seleccione un archivo </h2>
-          </td>
-      </tr>
-      <tr>
-        <td align="center" colspan="3">
-          <select name="descargaArchivo" id="listaArchivo">
-            <option value="">Selecciona una opción</option>
-            <option value="">---------------------------</option>
-            <option value="1">AlumnosMonterrey.csv</option>
-            <option value="2">AlumnosSantaFe.csv</option>
-            <option value="3">TodosLosAlumnos.csv</option>
-          </select>
-          </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-              <br>
-          </td>
-      </tr>
-      <tr>
-        <td align="center" colspan="3">
-              <input type="button" class="botonDefault" value="Descargar archivo" id="botonDescarga">
-          </td>
-      </tr>
-      <tr>
-        <td colspan="3">
+  <table border="0" cellpadding="10" cellspacing="0" width="100%">
+    
+    <tr bgcolor="black">
+        <td align="right" width="61%">
+            <h1> <font color="white"> Descarga de Archivos </font></h1>
+        </td>
+        <td width="7%"></td>
+        <td width="32%">
+            <input type="button" class="botonLogout" value="Logout" id="logout">
+        </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+            <div class="topnav">
+                <a href="carga_archivo.html">Carga Archivo</a>
+                <a class="active" href="descarga_archivo.html">Descarga Archivo</a>
+                <a href="editar_taller.html">Edita Taller</a>
+                <a href="listado_alumnos.html">Listado Alumnos</a>
+            </div>
+        </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+          <h2> Seleccione un archivo </h2>
+        </td>
+    </tr>
+    <tr>
+      <td align="center" colspan="3">
+        <select name="descargaArchivo" id="listaArchivo">
+          <option value="">Selecciona una opción</option>
+          <option value="">---------------------------</option>
+          <option value="1">MTY.csv</option>
+          <option value="2">CSF.csv</option>
+          <option value="3">GDA.csv</option>
+          <option value="4">PUE.csv</option>
+          <option value="5">TodosLosAlumnos.csv</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
             <br>
         </td>
     </tr>
     <tr>
-        <td align="center" colspan="3">
-            <h3>IMPORTANTE: Seleccione una de las tres opciones para descargar</h3>
+      <td align="center" colspan="3">
+            <input type="button" class="botonDefault" value="Descargar archivo" id="botonDescarga">
         </td>
     </tr>
-      
-    </table>
+    <tr>
+      <td colspan="3">
+          <br>
+      </td>
+  </tr>
+  <tr>
+      <td align="center" colspan="3">
+          <h3>IMPORTANTE: Seleccione una de las opciones para descargar</h3>
+      </td>
+  </tr>
+    
+  </table>
 
-  </form>
 </body>
 
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
   import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
-  import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -187,6 +187,10 @@ input:focus{
       consigueData(2);
     }else if (document.getElementById('listaArchivo').value == 3){
       consigueData(3);
+    }else if (document.getElementById('listaArchivo').value == 4){
+      consigueData(4);
+    }else if(document.getElementById('listaArchivo').value == 5){
+      consigueData(5);
     }else{
       alert('No se seleccionó ninguna opción o hubo un error, vuelva a intentar')
     }
@@ -211,7 +215,23 @@ input:focus{
       });
       descargaSantaFeCSV(arregloUsuario);
     }
-    else if(valor == 3){
+    else if (valor == 3){
+      q = query(collection(database, "Usuarios"), where("campus", "==", "Guadalajara"), where("rol", "==", "Alumno"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        arregloUsuario.push(doc.data());
+      });
+      descargaGuadalajaraCSV(arregloUsuario);
+    }
+    else if (valor == 4){
+      q = query(collection(database, "Usuarios"), where("campus", "==", "Puebla"), where("rol", "==", "Alumno"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        arregloUsuario.push(doc.data());
+      });
+      descargaPueblaCSV(arregloUsuario);
+    }
+    else if(valor == 5){
       q = query(collection(database, "Usuarios"), where("rol", "==", "Alumno"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
@@ -237,7 +257,7 @@ input:focus{
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
     hiddenElement.target = '_blank';  
       
-    hiddenElement.download = 'AlumnosMonterrey.csv';  
+    hiddenElement.download = 'MTY.csv';  
     hiddenElement.click();  
   }
 
@@ -257,7 +277,47 @@ input:focus{
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
     hiddenElement.target = '_blank';  
     
-    hiddenElement.download = 'AlumnosSantaFe.csv';  
+    hiddenElement.download = 'CSF.csv';  
+    hiddenElement.click();  
+  }
+
+  function descargaGuadalajaraCSV(arregloUsuario){
+    var fields = Object.keys(arregloUsuario[0])
+    var replacer = function(key, value) { return value === null ? '' : value } 
+    var csv = arregloUsuario.map(function(row){
+      return fields.map(function(fieldName){
+        return JSON.stringify(row[fieldName], replacer)
+      }).join(',')
+    })
+    csv.unshift(fields.join(','))
+    csv = csv.join('\r\n');
+    console.log(csv);
+    //document.write(csv);  
+    var hiddenElement = document.createElement('a');  
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
+    hiddenElement.target = '_blank';  
+    
+    hiddenElement.download = 'GDA.csv';  
+    hiddenElement.click();  
+  }
+
+  function descargaPueblaCSV(arregloUsuario){
+    var fields = Object.keys(arregloUsuario[0])
+    var replacer = function(key, value) { return value === null ? '' : value } 
+    var csv = arregloUsuario.map(function(row){
+      return fields.map(function(fieldName){
+        return JSON.stringify(row[fieldName], replacer)
+      }).join(',')
+    })
+    csv.unshift(fields.join(','))
+    csv = csv.join('\r\n');
+    console.log(csv);
+    //document.write(csv);  
+    var hiddenElement = document.createElement('a');  
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
+    hiddenElement.target = '_blank';  
+    
+    hiddenElement.download = 'PUE.csv';  
     hiddenElement.click();  
   }
 
@@ -281,14 +341,22 @@ input:focus{
     hiddenElement.click();  
   }
 
+  
+
   logout.addEventListener('click', ()=>{
-        signOut(auth).then(() => {
-            document.funcLogout.submit();
-            alert('Se salió correctamente de la cuenta')
-        }).catch((error) => {
-            alert('Hubo un error al salir de la cuenta')
-        });
+    signOut(auth).then(() => {
+        //document.funcLogout.submit();
+        alert('Se salió correctamente de la cuenta')
+    }).catch((error) => {
+        alert('Hubo un error al salir de la cuenta')
     });
+  });
+
+  onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        location.replace("index.html")
+      }
+  });
 
 </script> 
 
