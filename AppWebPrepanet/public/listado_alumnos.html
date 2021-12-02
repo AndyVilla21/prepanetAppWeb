@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Listado de Alumnos</title>
+<style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+</style>
+</head>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+body{
+	font-family: 'Raleway', sans-serif;
+}
+h3 {
+    color: #66686b;
+}
+input:focus{
+	border-style:solid ;
+	border-width:medium;
+	border-color:#66686b;
+	outline:0px;
+}
+.botonLogout{
+    background-color: #55595d;
+    color: #ffffff;
+	padding:  10px; 
+	border: none;
+	width: 15%;  
+	font-size:1em;
+	border-radius: .3em;
+}
+.botonLogout:hover{
+    background-color: #ddd;
+	color: #000;
+	transition: all .50s ease 0s;
+}
+.botonDefault {
+	background-color: #000;
+	color: #ffffff;
+	padding:  10px; 
+	border: none;
+	width: 15%;  
+	font-size:1em;
+	border-radius: .3em;
+}
+.botonDefault:hover {
+	background-color: #55595d;
+	color: #ffffff;
+	transition: all .50s ease 0s;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #55595d;
+  color: white;
+}
+</style>
+
+<body>
+
+
+    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+    
+        <tr bgcolor="black">
+            <td align="right" width="60%">
+                <h1> <font color="white"> Listado de Alumnos </font></h1>
+            </td>
+            <td width="10%"></td>
+            <td width="32%">
+                <input type="button" class="botonLogout" value="Logout" id="logout">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div class="topnav">
+                    <a href="carga_archivo.html">Carga Archivo</a>
+                    <a href="descarga_archivo.html">Descarga Archivo</a>
+                    <a href="editar_taller.html">Edita Taller</a>
+                    <a class="active" href="listado_alumnos.html">Listado Alumnos</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <h2> Listado de Alumnos </h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <table border="1" cellpadding="5" cellspacing="0" width="75%" id="listado">
+                    <tr>
+                        <td width="20%" align="center">
+                            campus
+                        </td>
+                        <td width="20%" align="center">
+                            email
+                        </td>
+                        <td width="10%" align="center">
+                            matricula
+                        </td>
+                        <td width="20%" align="center">
+                            nombre
+                        </td>
+                        <td width="10%" align="center">
+                            rol
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br \>
+            </td>
+        </tr>
+    
+    </table>
+
+</body>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
+      authDomain: "prepanet-4015e.firebaseapp.com",
+      projectId: "prepanet-4015e",
+      storageBucket: "prepanet-4015e.appspot.com",
+      messagingSenderId: "754150451770",
+      appId: "1:754150451770:web:099b314cacac2328832303"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getFirestore();
+    const auth = getAuth();
+
+    generaListado();
+
+    async function generaListado(){
+        var campus = "";
+        var email = "";
+        var matricula = "";
+        var nombre = "";
+        var rol = "";
+        var arregloUsuario = [];
+
+        var q = query(collection(database, "Usuarios"), where("rol", "==", "Alumno"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            campus = doc.data().campus;
+            email = doc.data().email;
+            matricula = doc.data().matricula;
+            nombre = doc.data().nombre;
+            rol = doc.data().rol;
+            let template = `
+                <tr>
+                    <td>${campus}</td>
+                    <td>${email}</td>
+                    <td>${matricula}</td>
+                    <td>${nombre}</td>
+                    <td>${rol}</td>
+                </tr>`;
+            listado.innerHTML += template;
+        });
+    }
+
+
+    logout.addEventListener('click', ()=>{
+        signOut(auth).then(() => {
+            //document.funcLogout.submit();
+            alert('Se salió correctamente de la cuenta')
+        }).catch((error) => {
+            alert('Hubo un error al salir de la cuenta')
+        });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        location.replace("index.html")
+      }
+    });
+
+</script>
+
+</html>
