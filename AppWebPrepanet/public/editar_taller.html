@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Edita talleres</title>
+<style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+</style>
+</head>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+body{
+	font-family: 'Raleway', sans-serif;
+}
+h3 {
+    color: #66686b;
+}
+input:focus{
+	border-style:solid ;
+	border-width:medium;
+	border-color:#55595d;
+	outline:0px;
+}
+.botonLogout{
+    background-color: #55595d;
+    color: #ffffff;
+	padding:  10px; 
+	border: none;
+	width: 15%;  
+	font-size:1em;
+	border-radius: .3em;
+}
+.botonLogout:hover{
+    background-color: #ddd;
+	color: #000;
+	transition: all .50s ease 0s;
+}
+.botonDefault {
+	background-color: #000;
+	color: #ffffff;
+	padding:  10px; 
+	border: none;
+	width: 15%;  
+	font-size:1em;
+	border-radius: .3em;
+}
+.botonDefault:hover {
+	background-color: #55595d;
+	color: #ffffff;
+	transition: all .50s ease 0s;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #000;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #55595d;
+  color: white;
+}
+</style>
+
+<body>
+
+
+    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+    
+        <tr bgcolor="black">
+            <td align="right" width="59%">
+                <h1> <font color="white"> Editor de Talleres </font></h1>
+            </td>
+            <td width="9%"></td>
+            <td width="32%">
+                <input type="button" class="botonLogout" value="Logout" id="logout">
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <div class="topnav">
+                    <a href="carga_archivo.html">Carga Archivo</a>
+                    <a href="descarga_archivo.html">Descarga Archivo</a>
+                    <a class="active" href="editar_taller.html">Edita Taller</a>
+                    <a href="listado_alumnos.html">Listado Alumnos</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <h2>Editar información de talleres</h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <h3>IMPORTANTE: Al dar click en el botón "Guardar Cambios" se actualizarán los campos editados</h3>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <input type="button" class="botonDefault" value="Guardar Cambios" id="guardaCambios">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table border="1" align="center" width="95%" cellspacing="0" cellpadding="8">
+                    <tr>
+                        <td width="20%" align="center">
+                            <p>Nombre del taller</p>
+                        </td>
+                        <td width="50%" align="center">
+                            <p>Descripción del taller</p>
+                        </td>
+                        <td width="30%" align="center">
+                            <p>Fechas del taller</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <input type="text" id="taller1_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller1_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller1_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller1_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller1_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller1_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <input type="text" id="taller2_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller2_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller2_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller2_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller2_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller2_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <input type="text" id="taller3_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller3_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller3_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller3_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller3_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller3_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <input type="text" id="taller4_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller4_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller4_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller4_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller4_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller4_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <input type="text" id="taller5_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller5_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller5_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller5_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller5_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller5_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                            <input type="text" id="taller6_titulo" style="width: 97%;">
+                        </td>
+                        <td width="50%">
+                            <textarea style="width: 99%;" rows="3" id="taller6_descripcion"></textarea>
+                        </td>
+                        <td width="30%">
+                            <p>Fecha inicio:</p><input type="date" id="taller6_fechaInicio" style="width: 50%;">&nbsp;<input type="time" id="taller6_horaInicio" style="width: 40%;">
+                            <p>Fecha fin:</p><input type="date" id="taller6_fechaFin" style="width: 50%;">&nbsp;<input type="time" id="taller6_horaFin" style="width: 40%;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br \>
+                <br \>
+            </td>
+        </tr>
+    
+    </table>
+</body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, Timestamp, arrayUnion } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3W4y_H7SvtoR05x87awW2_ozW9NpLmQA",
+      authDomain: "prepanet-4015e.firebaseapp.com",
+      projectId: "prepanet-4015e",
+      storageBucket: "prepanet-4015e.appspot.com",
+      messagingSenderId: "754150451770",
+      appId: "1:754150451770:web:099b314cacac2328832303"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getFirestore();
+    const auth = getAuth();
+
+    const docRef1 = doc(database, "Talleres", "1");
+    const docSnap1 = await getDoc(docRef1);
+
+
+    if (docSnap1.exists()) {
+        document.getElementById('taller1_titulo').value = docSnap1.data().titulo;
+        document.getElementById('taller1_descripcion').value = docSnap1.data().descripcion;
+        document.getElementById('taller1_fechaInicio').value = convierteFecha(docSnap1.data().wkDate[0].seconds);
+        document.getElementById('taller1_horaInicio').value = convierteHora(docSnap1.data().wkDate[0].seconds);
+        document.getElementById('taller1_fechaFin').value = convierteFecha(docSnap1.data().wkDate[1].seconds);
+        document.getElementById('taller1_horaFin').value = convierteHora(docSnap1.data().wkDate[1].seconds);
+        //generaTimestamp(document.getElementById('taller1_fechaInicio').value, document.getElementById('taller1_horaInicio').value);
+        //document.getElementById('taller1_requerimientos').value = docSnap1.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    const docRef2 = doc(database, "Talleres", "2");
+    const docSnap2 = await getDoc(docRef2);
+
+    if (docSnap2.exists()) {
+        document.getElementById('taller2_titulo').value = docSnap2.data().titulo;
+        document.getElementById('taller2_descripcion').value = docSnap2.data().descripcion;
+        document.getElementById('taller2_fechaInicio').value = convierteFecha(docSnap2.data().wkDate[0].seconds);
+        document.getElementById('taller2_horaInicio').value = convierteHora(docSnap2.data().wkDate[0].seconds);
+        document.getElementById('taller2_fechaFin').value = convierteFecha(docSnap2.data().wkDate[1].seconds);
+        document.getElementById('taller2_horaFin').value = convierteHora(docSnap2.data().wkDate[1].seconds);
+        //document.getElementById('taller2_requerimientos').value = docSnap2.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    const docRef3 = doc(database, "Talleres", "3");
+    const docSnap3 = await getDoc(docRef3);
+
+    if (docSnap3.exists()) {
+        document.getElementById('taller3_titulo').value = docSnap3.data().titulo;
+        document.getElementById('taller3_descripcion').value = docSnap3.data().descripcion;
+        document.getElementById('taller3_fechaInicio').value = convierteFecha(docSnap3.data().wkDate[0].seconds);
+        document.getElementById('taller3_horaInicio').value = convierteHora(docSnap3.data().wkDate[0].seconds);
+        document.getElementById('taller3_fechaFin').value = convierteFecha(docSnap3.data().wkDate[1].seconds);
+        document.getElementById('taller3_horaFin').value = convierteHora(docSnap3.data().wkDate[1].seconds);
+        //document.getElementById('taller2_requerimientos').value = docSnap2.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    const docRef4 = doc(database, "Talleres", "4");
+    const docSnap4 = await getDoc(docRef4);
+
+    if (docSnap4.exists()) {
+        document.getElementById('taller4_titulo').value = docSnap4.data().titulo;
+        document.getElementById('taller4_descripcion').value = docSnap4.data().descripcion;
+        document.getElementById('taller4_fechaInicio').value = convierteFecha(docSnap4.data().wkDate[0].seconds);
+        document.getElementById('taller4_horaInicio').value = convierteHora(docSnap4.data().wkDate[0].seconds);
+        document.getElementById('taller4_fechaFin').value = convierteFecha(docSnap4.data().wkDate[1].seconds);
+        document.getElementById('taller4_horaFin').value = convierteHora(docSnap4.data().wkDate[1].seconds);
+        //document.getElementById('taller2_requerimientos').value = docSnap2.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    const docRef5 = doc(database, "Talleres", "5");
+    const docSnap5 = await getDoc(docRef5);
+
+    if (docSnap5.exists()) {
+        document.getElementById('taller5_titulo').value = docSnap5.data().titulo;
+        document.getElementById('taller5_descripcion').value = docSnap5.data().descripcion;
+        document.getElementById('taller5_fechaInicio').value = convierteFecha(docSnap5.data().wkDate[0].seconds);
+        document.getElementById('taller5_horaInicio').value = convierteHora(docSnap5.data().wkDate[0].seconds);
+        document.getElementById('taller5_fechaFin').value = convierteFecha(docSnap5.data().wkDate[1].seconds);
+        document.getElementById('taller5_horaFin').value = convierteHora(docSnap5.data().wkDate[1].seconds);
+        //document.getElementById('taller2_requerimientos').value = docSnap2.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    const docRef6 = doc(database, "Talleres", "6");
+    const docSnap6 = await getDoc(docRef6);
+
+    if (docSnap6.exists()) {
+        document.getElementById('taller6_titulo').value = docSnap6.data().titulo;
+        document.getElementById('taller6_descripcion').value = docSnap6.data().descripcion;
+        document.getElementById('taller6_fechaInicio').value = convierteFecha(docSnap6.data().wkDate[0].seconds);
+        document.getElementById('taller6_horaInicio').value = convierteHora(docSnap6.data().wkDate[0].seconds);
+        document.getElementById('taller6_fechaFin').value = convierteFecha(docSnap6.data().wkDate[1].seconds);
+        document.getElementById('taller6_horaFin').value = convierteHora(docSnap6.data().wkDate[1].seconds);
+        //document.getElementById('taller2_requerimientos').value = docSnap2.data().requerimientos;
+    } else {
+        // doc.data() will be undefined in this case
+        alert('Hubo un error al cargar la base de datos');
+    }
+
+    function convierteFecha(fechaSegundos){
+        var date_not_formatted = new Date(fechaSegundos*1000);
+
+        var formatted_string = date_not_formatted.getFullYear() + "-";
+
+        if (date_not_formatted.getMonth() < 9) {
+            formatted_string += "0";
+        }
+        formatted_string += (date_not_formatted.getMonth() + 1);
+        formatted_string += "-";
+
+        if(date_not_formatted.getDate() < 10) {
+            formatted_string += "0";
+        }
+        formatted_string += date_not_formatted.getDate();
+
+
+        return formatted_string;
+    }
+
+    function convierteHora(fechaSegundos){
+        var hour_not_formatted = new Date(fechaSegundos*1000);
+        var formattedTime ="";
+
+        if (hour_not_formatted.getHours() < 10){
+            formattedTime += "0" + hour_not_formatted.getHours();
+        }else{
+            formattedTime += hour_not_formatted.getHours();
+        }
+        formattedTime += ":";
+
+        if (hour_not_formatted.getMinutes() < 10){
+            formattedTime += "0" + hour_not_formatted.getMinutes();
+        }else{
+            formattedTime += hour_not_formatted.getMinutes();
+        }
+
+        return formattedTime;
+    }
+
+    guardaCambios.addEventListener('click', () =>{
+        if (document.getElementById('taller1_titulo').value === "" || document.getElementById('taller1_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else if(document.getElementById('taller2_titulo').value === "" || document.getElementById('taller2_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else if(document.getElementById('taller3_titulo').value === "" || document.getElementById('taller3_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else if(document.getElementById('taller4_titulo').value === "" || document.getElementById('taller4_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else if(document.getElementById('taller5_titulo').value === "" || document.getElementById('taller5_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else if(document.getElementById('taller6_titulo').value === "" || document.getElementById('taller6_descripcion').value === ""){
+            alert('El título o descripción de algún taller no tiene información')
+        }else{
+            generaCambios();
+            alert('Los cambios se han guardado con éxito');
+        }
+    });
+
+    async function generaCambios(){
+        await updateDoc(docRef1, {
+            titulo: document.getElementById('taller1_titulo').value,
+            descripcion: document.getElementById('taller1_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller1_fechaInicio').value, document.getElementById('taller1_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller1_fechaFin').value, document.getElementById('taller1_horaFin').value)
+            }
+            */
+        });
+        await updateDoc(docRef2, {
+            titulo: document.getElementById('taller2_titulo').value,
+            descripcion: document.getElementById('taller2_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller2_fechaInicio').value, document.getElementById('taller2_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller2_fechaFin').value, document.getElementById('taller2_horaFin').value)
+            }
+            */
+        });
+        await updateDoc(docRef3, {
+            titulo: document.getElementById('taller3_titulo').value,
+            descripcion: document.getElementById('taller3_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller3_fechaInicio').value, document.getElementById('taller3_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller3_fechaFin').value, document.getElementById('taller3_horaFin').value)
+            }
+            */
+        });
+        await updateDoc(docRef4, {
+            titulo: document.getElementById('taller4_titulo').value,
+            descripcion: document.getElementById('taller4_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller4_fechaInicio').value, document.getElementById('taller4_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller4_fechaFin').value, document.getElementById('taller4_horaFin').value)
+            }
+            */
+        });
+        await updateDoc(docRef5, {
+            titulo: document.getElementById('taller5_titulo').value,
+            descripcion: document.getElementById('taller5_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller5_fechaInicio').value, document.getElementById('taller5_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller5_fechaFin').value, document.getElementById('taller5_horaFin').value)
+            }
+            */
+        });
+        await updateDoc(docRef6, {
+            titulo: document.getElementById('taller6_titulo').value,
+            descripcion: document.getElementById('taller6_descripcion').value
+            /*
+            wkDate: {
+                0: generaTimestamp(document.getElementById('taller6_fechaInicio').value, document.getElementById('taller6_horaInicio').value),
+                1: generaTimestamp(document.getElementById('taller6_fechaFin').value, document.getElementById('taller6_horaFin').value)
+            }
+            */
+        });
+    }
+
+    function generaTimestamp(fecha, hora) {
+        var objDate = new Date(fecha + "T" + hora);
+        var fechaTimestamp = new Timestamp((objDate/1000), 0); 
+
+        return fechaTimestamp;
+    }
+
+    logout.addEventListener('click', ()=>{
+        signOut(auth).then(() => {
+            alert('Se salió correctamente de la cuenta')
+        }).catch((error) => {
+            alert('Hubo un error al salir de la cuenta')
+        });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        location.replace("index.html")
+      }
+    });
+
+</script>
+
+</html>
