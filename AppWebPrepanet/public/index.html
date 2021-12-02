@@ -89,65 +89,59 @@ input[type=button]:hover {
 </style>
 
   <body>
-	<form name="forma" action="carga_archivo.html" method="post">
-    	<table border="0" cellpadding="10" cellspacing="0" width="100%">
-        
-        	<tr bgcolor="black">
-            	<td align="center">
-                	<h1> <font color="white"> Login Administradores Prepanet </font></h1>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+      
+      <tr bgcolor="black">
+        <td align="center">
+            <h1> <font color="white"> Login Administradores Prepanet </font></h1>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <br />
+          <br />
+          <table border="0" cellpadding="15" cellspacing="0" bgcolor="black" width="30%" id="table_login">
+            
+            <tr>
+              <td align="center">
+                  <h2><font color="white">Ingrese a su cuenta</font></h2>
+                </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <input type="text" placeholder="Correo electrónico" id="correo" />
               </td>
             </tr>
             <tr>
-                <td align="center">
-                	<br />
-                    <br />
-                    <table border="0" cellpadding="15" cellspacing="0" bgcolor="black" width="30%" id="table_login">
-                    
-                    	<tr>
-                        	<td align="center">
-                            	<h2><font color="white">Ingrese a su cuenta</font></h2>
-                            </td>
-                        </tr>
-                    
-                    	<tr>
-                        	<td align="center">
-                            	<input type="text" placeholder="Correo electrónico" id="correo" />
-                            </td>
-                        </tr>
-                        <tr>
-                        	<td align="center">
-                              <input type="password" placeholder="Contraseña" id="pass" />
-                            </td>
-                        </tr>
-                        <tr>
-							            <td align="center">
-                              <input type="button" value="Login" id="login" />
-                          </td>
-    					          </tr>
-                        <tr>
-                        	<td>
-                            	<br />
-
-                            </td>
-                        </tr>              
-                    </table>
-                </td>
-            
+              <td align="center">
+                <input type="password" placeholder="Contraseña" id="pass" />
+              </td>
             </tr>
-    	
+            <tr>
+              <td align="center">
+                <input type="button" value="Login" id="login" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <br />
+
+              </td>
+            </tr>              
+          </table>
+        </td>
+      </tr>
     
-    	</table>
-    </form>
+  
+    </table>
     
-    <script src="funciones.js"></script>
     
   </body>
 
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
-    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -163,7 +157,7 @@ input[type=button]:hover {
   
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+    //const database = getDatabase(app);
     const auth = getAuth();
 
     login.addEventListener('click', (e)=>{
@@ -176,7 +170,8 @@ input[type=button]:hover {
                 // Signed in 
                 const user = userCredential.user;
                 //alert('Log correcto');
-                document.forma.submit();
+                location.replace("carga_archivo.html")
+                //document.forma.submit();
                 // ...
             })
             .catch((error) => {
